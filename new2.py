@@ -11,7 +11,7 @@ web3.eth.defaultAccount = web3.eth.accounts[0]
 abi = json.loads('[{"constant":false,"inputs":[{"name":"_greeting","type":"string"}],"name":"setGreeting","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"constant":true,"inputs":[],"name":"greet","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"greeting","outputs":[{"name":"","type":"string"}],"payable":false,"stateMutability":"view","type":"function"}]')
 address = web3.toChecksumAddress("0x7dB6c4CAb7a233F36bBACA698bA6C6E269e539f9")
 
-contract = web3.eth.contract(address= address, abi=abi)
+contract = web3.eth.contract(address=address, abi=abi)
 
 print(contract.functions.greet().call())
 
