@@ -8,24 +8,20 @@ abi = json.loads('[{"constant":true,"inputs":[],"name":"name","outputs":[{"name"
 address2 = Web3.toChecksumAddress('0x41e5560054824ea6b0732e656e3ad64e20e94e45')
 contract = web3.eth.contract(address=address2, abi=abi)
 totalSupply = contract.functions.totalSupply().call()
-#Thong tin supply
+# Thong tin supply
 print(web3.fromWei(totalSupply, 'ether'))
 
-#Ten cua coin
+# Ten cua coin
 print(contract.functions.name().call())
 
-#Ten viet tat
+# Ten viet tat
 print(contract.functions.symbol().call())
 
-#Thong tin cua coin do
+# Thong tin cua coin do
 balance = contract.functions.balanceOf(address2).call()
 
-#In ra thong tin cua coin do
+# In ra thong tin cua coin do
 print(web3.fromWei(balance, 'ether'))
 
 
 ganache_url = "http:/127.0.0.1:"
-
-
-
-
