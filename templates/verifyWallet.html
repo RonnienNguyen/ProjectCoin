@@ -3,11 +3,6 @@
   rel="stylesheet"
   href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 />
-<link
-  href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
-  rel="stylesheet"
-  id="bootstrap-css"
-/>
 <link rel="stylesheet" href="../static/css/main.css" />
 <title>Verify Wallet Coin App</title>
 {% endblock %} {% block body %}
@@ -58,49 +53,67 @@
 </nav>
 
 <!-- Input data -->
-<div class="container text-center">
-  <h1 class="mt-5 text-white font-weight-light">Verify Wallet</h1>
-  <p class="lead text-white-50"></p>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-offset-4 col-sm-4">
-        <form method="POST">
-          <div class="form-group">
-            <label for="exampleFormControlSelect1">Mainnet ETH</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>Local Host</option>
-              <option>TestNet Eth</option>
-              <option>MainNet Eth</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="validate-text">Address to Admin</Address></label>
-            <div class="input-group">
+<div class="container">
+  <div class="row">
+    <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+      <div class="card card-signin my-5">
+        <div class="card-body">
+          <h5 class="card-title text-center">Verify Wallet</h5>
+          <form class="form-signin">
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Mainnet ETH</label>
+              <select
+                class="form-control"
+                id="exampleFormControlSelect1"
+                required
+                autofocus
+              >
+                <option>Local Host</option>
+                <option>TestNet Eth</option>
+                <option>MainNet Eth</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="inputEmail">Address to Admin</label>
               <input
                 type="text"
+                id="inputEmail"
                 class="form-control"
-                name="idplatform"
-                id="validate-text"
                 placeholder="Address to Admin"
                 required
               />
-              <span class="input-group-addon danger"
-                ><span class="glyphicon glyphicon-remove"></span
-              ></span>
             </div>
-          </div>
-          <div class="form-group">
-            <label for="exampleFormControlTextarea1">Token ID</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-          </div>
-        
-          <button type="submit" class="btn btn-primary col-xs-12" disabled>
-            Submit
-          </button>
-        </form>
+
+            <div class="form-group">
+              <label for="exampleFormControlTextarea1">Token ID</label>
+              <textarea
+                class="form-control"
+                id="exampleFormControlTextarea1"
+                rows="5"
+                required
+              ></textarea>
+            </div>
+
+            <button
+              class="btn btn-lg btn-primary btn-block text-uppercase"
+              type="submit"
+            >
+              Submit
+            </button>
+            <hr class="my-4" />
+            <button
+              class="btn btn-lg btn-google btn-block text-uppercase"
+              type="submit"
+            >
+              <i class="fab fa-google mr-2"></i> 1.000.000 $
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
+</div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="../static/js/main.js"></script>
