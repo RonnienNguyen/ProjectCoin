@@ -1,20 +1,72 @@
 from flask import Flask, render_template, request, redirect
 import socket
 import threading
+import requests
 
 app = Flask(__name__)
 
-SERVER = socket.gethostbyname(socket.gethostname())
-PORT = 1501
-ADDR = (SERVER, PORT)
 USERNAME = 'admin'
 PASSWORD = 'admin'
+
+
+@app.route('/signin', methods=['GET', 'POST'])
+# Signin
+def get_signin():
+    if request.method == 'POST':
+        username = request.form['fname']
+        password = request.form['fpass']
+    else:
+        return render_template('signin.html')
+    if username == USERNAME and password == PASSWORD:
+        return redirect('/history')
+    else:
+        return redirect('/signin')
+
+
+@app.route('/history', methods=['GET', 'POST'])
+# History
+def get_response():
+    if request.method == 'POST':
+        idGlobal = request.form['idglobal']
+
+        # address = "0x51923d87c096dfEF7962b97A9c315e147302e1e9"
+        address = idGlobal
+        admin = "0x51923d87c096dfEF7962b97A9c315e147302e1e9"
+        url = "https://api.etherscan.io/api?module=account&action=txlist&address=" + address + \
+            "&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=YourApiKeyToken"
+
+        response = requests.get(url)
+        address_content = response.json()
+        result = address_content.get("result")
+
+        data = []
+        for n, transaction in enumerate(result):
+            data.append({'hash': transaction.get("hash"),
+                        'timeStamp': transaction.get("time"),
+                        'tx_from': transaction.get("from"),
+                        'tx_to': transaction.get("to"),
+                        'value': transaction.get("value"),
+                        'fee': transaction.get("gasPrice"),
+                        'confirmation': transaction.get("confirmation")})
+        print(data)
+        return render_template('history.html', datas=data)
+    else:
+        return render_template('history.html')
+
+        
+
+
+# @app.route('/transaction', methods=['GET', 'POST'])
+# def
+
+
+SERVER = socket.gethostbyname(socket.gethostname())
 
 
 httpserver = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 # re-use the port if server crack
 httpserver.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-httpserver.bind(ADDR)
+# httpserver.bind(ADDR)
 
 
 def GET_request(filename):
@@ -23,7 +75,7 @@ def GET_request(filename):
     return True
 
 
-def POST_request(filename, request_body): 
+def POST_request(filename, request_body):
     username = request_body.split('&')[0].split('=')[1]
     password = request_body.split('&')[1].split('=')[1]
     # email = request_body.split('&')[2].split('=')[1]
@@ -46,18 +98,6 @@ def send_response(client, filename, status):
     header += 'Content-Type: '+str(mimetype)+'\n\n'
     response_msg = header.encode('utf8') + body
     client.send(response_msg)
-
-
-# @app.route('/history.html', methods=['GET', 'POST'])
-# def get_response():
-#     if request.method == 'POST':
-#         idPlatform = request.form['idplatform']
-#         return redirect('/history.html')
-#     else:
-#         return render_template('history.html')
-
-    
-
 
 
 def handle_client(conn, addr):
@@ -95,5 +135,5 @@ def start():
         httpserver.close()
 
 
-print("[STARTING] Waiting for client...")
-start()
+if __name__ == '__main__':
+    app.run(debug=True)
