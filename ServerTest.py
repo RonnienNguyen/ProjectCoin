@@ -1,5 +1,8 @@
+from flask import Flask, render_template, request, redirect
 import socket
 import threading
+
+app = Flask(__name__)
 
 SERVER = socket.gethostbyname(socket.gethostname())
 PORT = 1501
@@ -15,14 +18,16 @@ httpserver.bind(ADDR)
 
 
 def GET_request(filename):
-    if(filename == 'info.html'):
+    if(filename == 'signin.html'):
         return False
     return True
 
 
-def POST_request(filename, request_body):
+def POST_request(filename, request_body): 
     username = request_body.split('&')[0].split('=')[1]
     password = request_body.split('&')[1].split('=')[1]
+    # email = request_body.split('&')[2].split('=')[1]
+    # confirm = request_body.split('&')[3].split('=')[1]
     if(username == USERNAME and password == PASSWORD):
         return True
     return False
@@ -43,6 +48,18 @@ def send_response(client, filename, status):
     client.send(response_msg)
 
 
+# @app.route('/history.html', methods=['GET', 'POST'])
+# def get_response():
+#     if request.method == 'POST':
+#         idPlatform = request.form['idplatform']
+#         return redirect('/history.html')
+#     else:
+#         return render_template('history.html')
+
+    
+
+
+
 def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected")
     request = conn.recv(1024).decode('utf8')
@@ -50,7 +67,7 @@ def handle_client(conn, addr):
     method = request_detail[0]
     requesting_file = request_detail[1][1:]
     if(requesting_file == ''):
-        requesting_file = 'index.html'
+        requesting_file = 'history.html'
     flag = True
     if(method == 'GET'):
         flag = GET_request(requesting_file)
@@ -59,7 +76,7 @@ def handle_client(conn, addr):
     if(flag == True):
         send_response(conn, requesting_file, '200 OK')
     else:
-        send_response(conn, '404error.html', '404 Not Found')
+        send_response(conn, 'transaction.html', 'Transaction')
     conn.close()
     print(f"[DISCONNECT] {addr} has disconnected")
 
