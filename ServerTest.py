@@ -48,12 +48,15 @@ def get_response():
                         'value': transaction.get("value"),
                         'fee': transaction.get("gasPrice"),
                         'confirmation': transaction.get("confirmation")})
-        print(data)
         return render_template('history.html', datas=data)
     else:
         return render_template('history.html')
 
-        
+@app.route('/verifyWallet', methods=['GET', 'POST'])
+# Verify Wallet
+def get_verify():       
+    return render_template('verifyWallet.html')
+
 
 
 # @app.route('/transaction', methods=['GET', 'POST'])
