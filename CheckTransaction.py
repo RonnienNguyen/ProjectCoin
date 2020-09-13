@@ -1,18 +1,11 @@
 import requests
 
-
-
-
 address = "0x51923d87c096dfEF7962b97A9c315e147302e1e9"
 admin = "0x51923d87c096dfEF7962b97A9c315e147302e1e9"
-
 
 url = "https://api.etherscan.io/api?module=account&action=txlist&address=" + address + "&startblock=0&endblock=99999999&page=1&offset=10&sort=desc&apikey=YourApiKeyToken"
 
 response = requests.get(url)
-#
-# print(response.json())
-
 
 address_content = response.json()
 
@@ -36,6 +29,8 @@ for n, transaction in enumerate(result):
     print("Value: ", value)
     print("Confirmations: ", confirmations)
     print("\n")
+
+
 
 
 

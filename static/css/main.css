@@ -1,3 +1,5 @@
+/* Signin + Register */
+/* https://startbootstrap.com/snippets/registration-page/ */
 :root {
   --input-padding-x: 1.5rem;
   --input-padding-y: 0.75rem;
@@ -118,6 +120,8 @@ body {
   background-color: #3b5998;
 }
 
+/* Navbar + Background */
+/* https://startbootstrap.com/snippets/animated-navbar-dropdown/ */
 /* Change this breakpoint if you change the breakpoint of the navbar */
 
 @media (min-width: 992px) {
@@ -170,6 +174,8 @@ body {
   background: #007bff;
   background: linear-gradient(to right, #0062e6, #33aeff);
 }
+
+/* Q */
 
 .filterable {
   margin-top: 15px;
@@ -326,168 +332,158 @@ body {
 }
 
 /* Table */
-.table-responsive-stack tr {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-}
-
-.table-responsive-stack td,
-.table-responsive-stack th {
-  display: block;
-  /*      
-   flex-grow | flex-shrink | flex-basis   */
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-}
-
-.table-responsive-stack .table-responsive-stack-thead {
-  font-weight: bold;
-}
-
-@media screen and (max-width: 768px) {
-  .table-responsive-stack tr {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    border-bottom: 3px solid #ccc;
-    display: block;
-  }
-  /*  IE9 FIX   */
-  .table-responsive-stack td {
-    float: left\9;
-    width: 100%;
-  }
-}
-
+/* https://bbbootstrap.com/snippets/static-table-checkboxes-and-fixed-header-43151252 */
 @import url(http://fonts.googleapis.com/css?family=Calibri:400,300,700);
 
 body {
-    background-color: #673AB7;
-    font-family: 'Calibri', sans-serif !important
-}
-
-.container {
-    margin-top: 100px
+  background-color: #673ab7;
+  font-family: "Calibri", sans-serif !important;
 }
 
 .card {
-    position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #fff;
-    background-clip: border-box;
-    border: 0px solid transparent;
-    border-radius: 0px
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0px solid transparent;
+  border-radius: 0px;
 }
 
 .card-body {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
-    padding: 1.25rem
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  padding: 1.25rem;
 }
 
 .card .card-title {
-    position: relative;
-    font-weight: 600;
-    margin-bottom: 10px
+  position: relative;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .table {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 1rem;
-    background-color: transparent
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
 }
 
 * {
-    outline: none
+  outline: none;
 }
 
 .table th,
 .table thead th {
-    font-weight: 500
+  font-weight: 500;
 }
 
 .table thead th {
-    vertical-align: bottom;
-    border-bottom: 2px solid #dee2e6
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
 }
 
 .table th {
-    padding: 1rem;
-    vertical-align: top;
-    border-top: 1px solid #dee2e6
+  padding: 1rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
 }
 
 .table th,
 .table thead th {
-    font-weight: 500
+  font-weight: 500;
 }
 
 th {
-    text-align: inherit
+  text-align: inherit;
 }
 
 .m-b-20 {
-    margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 .customcheckbox {
-    display: block;
-    position: relative;
-    padding-left: 24px;
-    font-weight: 100;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none
+  display: block;
+  position: relative;
+  padding-left: 24px;
+  font-weight: 100;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .customcheckbox input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
 }
 
 .checkmark {
-    position: absolute;
-    top: -3px;
-    left: 0;
-    height: 20px;
-    width: 20px;
-    background-color: #CDCDCD;
-    border-radius: 6px
+  position: absolute;
+  top: -3px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #cdcdcd;
+  border-radius: 6px;
 }
 
-.customcheckbox input:checked~.checkmark {
-    background-color: #2196BB
+.customcheckbox input:checked ~ .checkmark {
+  background-color: #2196bb;
 }
 
 .customcheckbox .checkmark:after {
-    left: 8px;
-    top: 4px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg)
+  left: 8px;
+  top: 4px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Wallet */
+/* https://bbbootstrap.com/snippets/bootstrap-subscription-information-template-cancel-and-upgrade-subscription-button-43284246 */
+
+.progress {
+  height: 8px;
+}
+
+.progress-info {
+  font-size: 11px;
+}
+
+.access-data {
+  font-size: 11px;
+}
+
+.progress-bar {
+  background: #3656dc;
+}
+
+.btn-primary,
+.btn-primary:active,
+.btn-primary:visited,
+.btn-primary:focus {
+  background-color: #3656dc;
+  border-color: #3656dc;
+}
+
+.btn-primary:hover {
+  background-color: #2a43ad;
+  border-color: #2a43ad;
 }
